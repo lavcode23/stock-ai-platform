@@ -1,0 +1,88 @@
+# Trading Assistant Configuration
+
+account:
+  initial_capital: 100000
+  daily_risk_percent: 1.0
+  max_trades_per_day: 3
+
+risk:
+  atr_stop_multiplier: 2.0
+  reward_ratio: 2.0
+  min_atr: 5.0
+
+symbols:
+  index: "^NSEI"
+  stocks:
+    - "RELIANCE.NS"
+    - "TCS.NS"
+    - "HDFCBANK.NS"
+    - "INFY.NS"
+    - "HINDUNILVR.NS"
+    - "ICICIBANK.NS"
+    - "KOTAKBANK.NS"
+    - "SBIN.NS"
+    - "BHARTIARTL.NS"
+    - "ITC.NS"
+    - "BAJFINANCE.NS"
+    - "LT.NS"
+    - "ASIANPAINT.NS"
+    - "AXISBANK.NS"
+    - "MARUTI.NS"
+    - "SUNPHARMA.NS"
+    - "TITAN.NS"
+    - "ULTRACEMCO.NS"
+    - "WIPRO.NS"
+    - "NESTLEIND.NS"
+    - "POWERGRID.NS"
+    - "NTPC.NS"
+    - "ONGC.NS"
+    - "TECHM.NS"
+    - "HCLTECH.NS"
+
+sectors:
+  IT:
+    - "TCS.NS"
+    - "INFY.NS"
+    - "WIPRO.NS"
+    - "TECHM.NS"
+    - "HCLTECH.NS"
+  Banking:
+    - "HDFCBANK.NS"
+    - "ICICIBANK.NS"
+    - "KOTAKBANK.NS"
+    - "SBIN.NS"
+    - "AXISBANK.NS"
+  Auto:
+    - "MARUTI.NS"
+    - "TATAMOTORS.NS"
+  FMCG:
+    - "HINDUNILVR.NS"
+    - "ITC.NS"
+    - "NESTLEIND.NS"
+  Energy:
+    - "RELIANCE.NS"
+    - "ONGC.NS"
+    - "NTPC.NS"
+    - "POWERGRID.NS"
+  Pharma:
+    - "SUNPHARMA.NS"
+  Finance:
+    - "BAJFINANCE.NS"
+  Materials:
+    - "ULTRACEMCO.NS"
+    - "ASIANPAINT.NS"
+  Telecom:
+    - "BHARTIARTL.NS"
+  Industrials:
+    - "LT.NS"
+  Consumer:
+    - "TITAN.NS"
+
+ml:
+  lookback_days: 60
+  train_test_split: 0.7
+  min_score: 0.6
+  
+data:
+  refresh_interval: 10
+  history_period: "3mo"
