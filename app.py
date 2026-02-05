@@ -212,6 +212,24 @@ with tab_today:
         st.metric("Risk Used", f"₹{limits.get('risk_used',0):,.0f}")
 
     st.markdown("---")
+    # -------- Risk Gate Visual --------
+max_daily_risk = config["account"]["initial_capital"] * config["account"]["daily_risk_percent"] / 100
+used_risk = limits.get("risk_used", 0)
+
+risk_pct = min(used_risk / max_daily_risk, 1.0) if max_daily_risk > 0 else 0
+
+st.markdown("### 🛡️ Risk Gate")
+
+st.progress(risk_pct)
+
+st.caption(
+    f"Used: ₹{used_risk:,.0f} / Allowed: ₹{max_daily_risk:,.0f} "
+    f"({risk_pct*100:.0f}%)"
+)
+
+if used_risk >= max_daily_risk:
+    st.error("⛔ Daily risk exhausted. No more trades today.")
+
 
     # Action controls
     gen_col, opt_col = st.columns([1.3, 1])
@@ -345,6 +363,44 @@ with tab_today:
         )
 
         st.info("💡 Execute manually in Zerodha/Upstox. Do NOT enter before entry triggers.")
+        # -------- Copy Orders --------
+st.markdown("## 📋 Copy Orders (Zerodha / Upstox)")
+
+for sig in st.session_state["today_signals"]:
+    symbol = sig["symbol"]
+    qty = int(sig.get("quantity", 0))
+    entry = float(sig.get("entry", 0))
+    stop = float(sig.get("stop_loss", 0))
+    target = float(sig.get("target", 0))
+
+    zerodha = f"""
+BUY {symbol}
+QTY {qty}
+LIMIT {entry:.2f}
+
+STOP LOSS:
+SELL {symbol}
+QTY {qty}
+SL {stop:.2f}
+
+TARGET:
+SELL {symbol}
+QTY {qty}
+LIMIT {target:.2f}
+"""
+
+    upstox = f"""
+{symbol}
+Buy Qty: {qty}
+Entry: {entry:.2f}
+StopLoss: {stop:.2f}
+Target: {target:.2f}
+"""
+
+    with st.expander(f"📄 {symbol} Order Copy"):
+        st.text_area("Zerodha Format", zerodha, height=120)
+        st.text_area("Upstox Format", upstox, height=80)
+
 
         # Why this trade + Candlestick
         if show_why_panel and "Symbol" in display_df.columns:
