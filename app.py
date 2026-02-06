@@ -3,6 +3,12 @@ Trading Assistant - PREMIUM VERSION
 Complete AI-powered trading platform for Indian stocks
 Features: Broker Integration, Alerts, Options, Advanced ML
 """
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+sys.path.append(str(ROOT))
+
 
 import streamlit as st
 import pandas as pd
