@@ -10,3 +10,5 @@ streamlit-autorefresh
 kiteconnect>=4.2.0
 xgboost>=2.0.0
 lightgbm>=4.0.0
+scipy>=1.10.0
+requests>=2.31.0
